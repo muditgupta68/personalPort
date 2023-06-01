@@ -1,15 +1,44 @@
 const ReactModel = require("../schema/projectSchema");
 
-exports.getProjects = async(req, res) => {
+exports.getProjects = async (req, res) => {
   try {
-    const data = await ReactModel.find({});
-    res.status(200).json({ projects: data });
+    // pagination
+    let { page, size,search } = req.query;
+    if (!page) {
+      page = 1;
+    }
+    if (!size) {
+      size = 6;
+    }
+
+    const limit = parseInt(size);
+    page = parseInt(page);
+
+    // search
+    let searchQuery = {}
+    if(search){
+    searchQuery = {tag:search.split('%')};
+    }
+
+    const data = await ReactModel.find(searchQuery)
+      .limit(limit)
+      .skip((page - 1) * limit);
+
+    const countData = await ReactModel.countDocuments();
+
+
+
+    res.status(200).json({
+      projects: data,
+      curr: page,
+      totalPages: Math.ceil(countData / limit),
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
-exports.addProjects = async(req, res) => {
+exports.addProjects = async (req, res) => {
   try {
     const data = req.body;
     if (!data) {

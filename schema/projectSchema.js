@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const reactSchema = new mongoose.Schema({
+const projectSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -36,6 +36,6 @@ const reactSchema = new mongoose.Schema({
   }
 });
 
-const ReactModel = mongoose.model('Projects', reactSchema);
+const ReactModel = mongoose.model('Projects', projectSchema);
 
 module.exports = ReactModel;

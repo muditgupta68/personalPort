@@ -17,6 +17,14 @@ const reactSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
+  Link: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
@@ -24,7 +32,7 @@ const reactSchema = new mongoose.Schema({
   tag: {
     type: String,
     required: true,
-    enum: ['Web', 'Data Science', 'Dashboards','Designing']
+    enum: ['Web', 'Data Science', 'BI Dashboards','Analyst']
   }
 });
 

@@ -32,7 +32,7 @@ const projectSchema = new mongoose.Schema({
   tag: {
     type: String,
     required: true,
-    enum: ['Web', 'Data Science', 'BI Dashboards','Analyst']
+    enum: ['Web', 'DS', 'BI','Analyst']
   }
 });
 

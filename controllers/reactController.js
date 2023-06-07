@@ -3,7 +3,7 @@ const ReactModel = require("../schema/projectSchema");
 exports.getProjects = async (req, res) => {
   try {
     // pagination
-    let { page, size,search } = req.query;
+    let { page, size, search } = req.query;
     if (!page) {
       page = 1;
     }
@@ -15,9 +15,9 @@ exports.getProjects = async (req, res) => {
     page = parseInt(page);
 
     // search
-    let searchQuery = {}
-    if(search){
-    searchQuery = {tag:search.split('%')};
+    let searchQuery = {};
+    if (search) {
+      searchQuery = { tag: search.split("%") };
     }
 
     const data = await ReactModel.find(searchQuery)
@@ -26,11 +26,12 @@ exports.getProjects = async (req, res) => {
 
     const countData = await ReactModel.countDocuments();
 
-
+    const countTotal = await ReactModel.find(searchQuery);
 
     res.status(200).json({
       projects: data,
       curr: page,
+      totalValues: countTotal.length,
       totalPages: Math.ceil(countData / limit),
     });
   } catch (error) {
